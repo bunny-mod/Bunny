@@ -70,6 +70,10 @@ export function isPluginEnabled(id: string) {
     return Boolean(pluginSettings[id]?.enabled);
 }
 
+export function getAllRepositories() {
+    return Object.keys(pluginRepositories).filter(repo => !repo.startsWith("$"));
+}
+
 /**
  * Fetch and write the plugin to thier respective storage. This does not compare the version nor execute the plugin
  * @param repoUrl URL to the plugin repository
@@ -153,6 +157,8 @@ export async function updateRepository(repoUrl: string) {
     }
 
     await Promise.all(Object.keys(repo).map(async pluginId => {
+        if (pluginId.startsWith("$")) return;
+
         if (!storedRepo || !storedRepo[pluginId] || repo[pluginId].alwaysFetch || isGreaterVersion(repo[pluginId].version, storedRepo[pluginId].version)) {
             updated = true;
             pluginRepositories[repoUrl][pluginId] = repo[pluginId];
@@ -166,7 +172,7 @@ export async function updateRepository(repoUrl: string) {
     }));
 
     // Register plugins in this repository
-    for (const id in repo) {
+    for (const id in repo) if (!id.startsWith("$")) {
         const manifest = getPreloadedStorage<t.BunnyPluginManifest>(`plugins/manifests/${id}.json`);
         if (manifest === undefined) continue; // shouldn't happen, but just incase if it does
 
@@ -195,7 +201,7 @@ export async function deleteRepository(repoUrl: string) {
     for (const [id, manifest] of registeredPlugins) {
         if (!isExternalPlugin(manifest) || manifest.parentRepository !== repoUrl) continue;
 
-        // Uninstall
+        // Uninstall plugin
         if (isPluginInstalled(id)) {
             promQueues.push(uninstallPlugin(id));
         }

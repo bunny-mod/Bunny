@@ -9,7 +9,6 @@ export type PluginRepo = Record<string, {
 }> & {
     $meta: {
         name: string;
-        description: string;
     };
 };
 

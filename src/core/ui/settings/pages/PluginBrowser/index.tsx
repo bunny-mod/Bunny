@@ -1,3 +1,4 @@
+import { Change, Observable } from "@gullerya/object-observer";
 import { deleteRepository, installPlugin, isCorePlugin, isPluginInstalled, pluginRepositories, registeredPlugins, uninstallPlugin, updateAllRepository, updateRepository } from "@lib/addons/plugins";
 import { BunnyPluginManifestInternal } from "@lib/addons/plugins/types";
 import { findAssetId } from "@lib/api/assets";
@@ -113,6 +114,18 @@ function BrowserPage() {
         queryFn: () => getManifests()
     });
 
+    useEffect(() => {
+        const callback = (change: Change[]) => {
+            // Refetch only if a repository is added or removed
+            if (change.some(c => c.path.length === 1)) {
+                refetch();
+            }
+        };
+
+        Observable.observe(pluginRepositories, callback);
+        return () => Observable.unobserve(pluginRepositories, callback);
+    }, [refetch]);
+
     if (error) {
         return <View style={{
             flex: 1,
@@ -160,7 +173,8 @@ function AddRepositoryAlert() {
         extraContent={<TextInput
             value={value}
             onChange={setValue}
-            placeholder="https://example.com/repo.json" />}
+            placeholder="https://example.com/repo.json"
+        />}
         actions={<AlertActions>
             <AlertActionButton
                 text="Add"
@@ -172,11 +186,17 @@ function AddRepositoryAlert() {
                         showToast("Added repository!", findAssetId("Check"));
                     } catch (e) {
                         showToast("Failed to add repository!", findAssetId("Small"));
+                        console.error("Failed to add repository", e);
                     } finally {
                         dismissAlert("bunny-add-plugin-repository");
                         showSheet("plugin-browser-options", PluginBrowserOptions);
                     }
-                }} />
+                }}
+            />
+            <AlertActionButton
+                text="Cancel"
+                variant="secondary"
+            />
         </AlertActions>} />;
 }
 
@@ -203,7 +223,7 @@ function RepositoryRow(props: { url: string; }) {
 
     return (
         <TableRow
-            label={isOfficial ? "Bunny's Repository" : (repo.$meta?.name ?? "Unknown")}
+            label={isOfficial ? "Bunny's Repository" : ((repo.$meta?.name ?? new URL(props.url).hostname) || "Unknown")}
             subLabel={props.url}
             trailing={(
                 <Stack direction="horizontal">
@@ -222,6 +242,7 @@ function RepositoryRow(props: { url: string; }) {
                         disabled={isOfficial}
                         icon={findAssetId("TrashIcon")}
                         onPress={() => {
+                            hideSheet("plugin-browser-options");
                             openAlert("bunny-remove-repository", <AlertModal
                                 title="Remove Repository"
                                 content="Are you sure you want to remove this repository?"
@@ -234,9 +255,13 @@ function RepositoryRow(props: { url: string; }) {
                                         variant="destructive"
                                         onPress={async () => {
                                             await deleteRepository(props.url);
-                                            showToast("Removed repository!", findAssetId("Trash"));
+                                            showToast("Removed repository!");
                                             dismissAlert("bunny-remove-repository");
                                         }}
+                                    />
+                                    <AlertActionButton
+                                        text="Cancel"
+                                        variant="secondary"
                                     />
                                 </AlertActions>}
                             />);
