@@ -37,19 +37,19 @@ export default async () => {
     );
 
     // Assign window object
-    window.bunny = lib;
+    window.fastcord = lib;
 
     // Once done, load Vendetta plugins
     VdPluginManager.initPlugins()
         .then(u => lib.unload.push(u))
         .catch(() => alert("Failed to initialize Vendetta plugins"));
 
-    // And then, load Bunny plugins
+    // And then, load Fastcord plugins
     initPlugins();
 
     // Update the fonts
     updateFonts();
 
     // We good :)
-    logger.log("Bunny is ready!");
+    logger.log("Fastcord is ready!");
 };

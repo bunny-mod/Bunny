@@ -50,6 +50,6 @@ export interface BunnyPluginProperty {
     createStorage<T extends object>(): ReturnType<typeof createStorage<T>>;
 }
 
-export type BunnyPluginObject = typeof window.bunny & {
+export type BunnyPluginObject = typeof window.fastcord & {
     plugin: BunnyPluginProperty;
 };

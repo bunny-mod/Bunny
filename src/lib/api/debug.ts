@@ -6,7 +6,7 @@ import { after } from "@lib/api/patcher";
 import { settings } from "@lib/api/settings";
 import { logger } from "@lib/utils/logger";
 import { showToast } from "@ui/toasts";
-import { version } from "bunny-build-info";
+import { version } from "fastcord-build-info";
 import { Platform, type PlatformConstants } from "react-native";
 
 export interface RNConstants extends PlatformConstants {

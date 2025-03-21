@@ -41,7 +41,7 @@ export function serve(options) {
 
     server.listen(args.port ?? 4040);
 
-    console.info(chalk.bold.yellowBright("Serving Bunny bundle, available on:"));
+    console.info(chalk.bold.yellowBright("Serving Fastcord bundle, available on:"));
 
     const netInterfaces = os.networkInterfaces();
     for (const netinterfaces of Object.values(netInterfaces)) {

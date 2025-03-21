@@ -5,7 +5,7 @@ import { findAssetId } from "@lib/api/assets";
 import { isFontSupported, isThemeSupported } from "@lib/api/native/loader";
 import { settings } from "@lib/api/settings";
 import { registerSection } from "@ui/settings";
-import { version } from "bunny-build-info";
+import { version } from "fastcord-build-info";
 
 export { PyoncordIcon };
 

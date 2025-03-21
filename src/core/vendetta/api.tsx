@@ -5,7 +5,7 @@ import * as themes from "@lib/addons/themes";
 import * as assets from "@lib/api/assets";
 import * as commands from "@lib/api/commands";
 import * as debug from "@lib/api/debug";
-import { getVendettaLoaderIdentity, isPyonLoader } from "@lib/api/native/loader";
+import { getVendettaLoaderIdentity, isFastcordLoader } from "@lib/api/native/loader";
 import patcher from "@lib/api/patcher";
 import { loaderConfig, settings } from "@lib/api/settings";
 import * as utils from "@lib/utils";
@@ -226,7 +226,7 @@ export const initVendettaObject = (): any => {
             createMMKVBackend: (store: string) => storage.createMMKVBackend(store),
             createFileBackend: (file: string) => {
                 // Redirect path to vendetta_theme.json
-                if (isPyonLoader() && file === "vendetta_theme.json") {
+                if (isFastcordLoader() && file === "vendetta_theme.json") {
                     file = "pyoncord/current-theme.json";
                 }
 

@@ -1,4 +1,4 @@
-declare module "bunny-build-info" {
+declare module "fastcord-build-info" {
     const version: string;
 }
 

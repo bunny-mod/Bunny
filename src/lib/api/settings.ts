@@ -26,7 +26,7 @@ export const loaderConfig = wrapSync(createStorage<LoaderConfig>(
     createFileBackend(getLoaderConfigPath(), {
         customLoadUrl: {
             enabled: false,
-            url: "http://localhost:4040/bunny.js"
+            url: "http://localhost:4040/fastcord.js"
         }
     })
 ));

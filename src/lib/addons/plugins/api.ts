@@ -27,21 +27,21 @@ export function createBunnyPluginApi(id: string) {
 
     // proxying this would be a good idea
     const object = {
-        ...window.bunny,
+        ...window.fastcord,
         api: {
-            ...window.bunny.api,
+            ...window.fastcord.api,
             patcher: {
                 before: shimDisposableFn(disposers, patcher.before),
                 after: shimDisposableFn(disposers, patcher.after),
                 instead: shimDisposableFn(disposers, patcher.instead)
             },
             commands: {
-                ...window.bunny.api.commands,
+                ...window.fastcord.api.commands,
                 registerCommand: shimDisposableFn(disposers, registerCommand)
             },
             flux: {
-                ...window.bunny.api.flux,
-                intercept: shimDisposableFn(disposers, window.bunny.api.flux.intercept)
+                ...window.fastcord.api.flux,
+                intercept: shimDisposableFn(disposers, window.fastcord.api.flux.intercept)
             }
         },
         // Added something in here? Make sure to also update BunnyPluginProperty in ./types
