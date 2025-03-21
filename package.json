@@ -2,13 +2,13 @@
     "name": "bunny",
     "private": true,
     "author": {
-        "name": "Pyoncord Team",
-        "url": "https://github.com/pyoncord"
+        "name": "Fastcord Team",
+        "url": "https://github.com/irevolutiondev"
     },
     "scripts": {
         "build": "node scripts/build.mjs",
         "serve": "node scripts/serve.mjs",
-        "serve:adb": "pnpm run serve --adb",
+        "serve:adb": "bun run serve --adb",
         "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
     },
     "license": "BSD-3-Clause",
