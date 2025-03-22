@@ -9,7 +9,9 @@
         "build": "node scripts/build.mjs",
         "serve": "node scripts/serve.mjs",
         "serve:adb": "bun run serve --adb",
-        "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+        "lint": "bunx biome lint --write ./src",
+        "format": "bunx biome format --write ./src",
+        "check": "bunx biome check --write ./src"
     },
     "license": "BSD-3-Clause",
     "devDependencies": {
@@ -18,9 +20,6 @@
         "@swc/helpers": "^0.5.12",
         "@types/node": "^20.14.11",
         "@types/yargs-parser": "^21.0.3",
-        "@typescript-eslint/eslint-plugin": "^7.16.1",
-        "@typescript-eslint/parser": "^7.16.1",
-        "@typescript-eslint/typescript-estree": "^7.16.1",
         "chalk": "^5.3.0",
         "esbuild": "^0.20.2",
         "esbuild-plugin-globals": "^0.2.0",
