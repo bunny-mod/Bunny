@@ -1,6 +1,6 @@
 import { isSafeMode, toggleSafeMode } from "@core/debug/safeMode";
 import { Strings } from "@core/i18n";
-import { PyoncordIcon } from "@core/ui/settings";
+import { FastcordIcon } from "@core/ui/settings";
 import About from "@core/ui/settings/pages/General/About";
 import { useProxy } from "@core/vendetta/storage";
 import { findAssetId } from "@lib/api/assets";
@@ -24,9 +24,9 @@ export default function General() {
             <Stack style={{ paddingVertical: 24, paddingHorizontal: 12 }} spacing={24}>
                 <TableRowGroup title={Strings.INFO}>
                     <TableRow
-                        label={Strings.BUNNY}
-                        icon={<TableRow.Icon source={{ uri: PyoncordIcon }} />}
-                        trailing={<TableRow.TrailingText text={debugInfo.bunny.version} />}
+                        label={Strings.FASTCORD}
+                        icon={<TableRow.Icon source={{ uri: FastcordIcon }} />}
+                        trailing={<TableRow.TrailingText text={debugInfo.fastcord.version} />}
                     />
                     <TableRow
                         label={"Discord"}
@@ -37,7 +37,7 @@ export default function General() {
                         arrow
                         label={Strings.ABOUT}
                         icon={<TableRow.Icon source={findAssetId("CircleInformationIcon-primary")!} />}
-                        onPress={() => navigation.push("BUNNY_CUSTOM_PAGE", {
+                        onPress={() => navigation.push("FASTCORD_CUSTOM_PAGE", {
                             title: Strings.ABOUT,
                             render: () => <About />,
                         })}
@@ -65,13 +65,13 @@ export default function General() {
                     />
                     <TableSwitchRow
                         label={"Safe Mode"}
-                        subLabel={"Load Bunny without loading add-ons"}
+                        subLabel={"Load Fastcord without loading add-ons"}
                         icon={<TableRow.Icon source={findAssetId("ShieldIcon")!} />}
                         value={isSafeMode()}
                         onValueChange={(to: boolean) => {
                             toggleSafeMode({ to, reload: false });
                             openAlert(
-                                "bunny-reload-safe-mode",
+                                "fastcord-reload-safe-mode",
                                 <AlertModal
                                     title="Reload now?"
                                     content={!to ? "All add-ons will load normally." : "All add-ons will be temporarily disabled upon reload."}

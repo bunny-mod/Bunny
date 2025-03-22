@@ -1,4 +1,4 @@
-import { ApplicationCommand, ApplicationCommandInputType, ApplicationCommandType, BunnyApplicationCommand } from "@lib/api/commands/types";
+import { ApplicationCommand, ApplicationCommandInputType, ApplicationCommandType, FastcordApplicationCommand } from "@lib/api/commands/types";
 import { after, instead } from "@lib/api/patcher";
 import { logger } from "@lib/utils/logger";
 import { commands as commandsModule, messageUtil } from "@metro/common";
@@ -12,7 +12,7 @@ export function patchCommands() {
     const unpatch = after("getBuiltInCommands", commandsModule, ([type], res: ApplicationCommand[]) => {
         return [...res, ...commands.filter(c =>
             (type instanceof Array ? type.includes(c.type) : type === c.type)
-            && c.__bunny?.shouldHide?.() !== false)
+            && c.__fastcord?.shouldHide?.() !== false)
         ];
     });
 
@@ -29,7 +29,7 @@ export function patchCommands() {
     };
 }
 
-export function registerCommand(command: BunnyApplicationCommand): () => void {
+export function registerCommand(command: FastcordApplicationCommand): () => void {
     // Get built in commands
     let builtInCommands: ApplicationCommand[];
     try {
@@ -46,7 +46,7 @@ export function registerCommand(command: BunnyApplicationCommand): () => void {
     command.id = (parseInt(lastCommand.id!, 10) - 1).toString();
 
     // Fill optional args
-    command.__bunny = {
+    command.__fastcord = {
         shouldHide: command.shouldHide
     };
 

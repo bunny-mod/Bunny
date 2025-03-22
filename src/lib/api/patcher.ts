@@ -5,7 +5,7 @@ const {
 } = require("spitroast");
 
 /** @internal */
-export const _patcherDelaySymbol = Symbol.for("bunny.api.patcher.delay");
+export const _patcherDelaySymbol = Symbol.for("fastcord.api.patcher.delay");
 
 type Unpatcher = () => boolean;
 type DelayCallback = (callback: (target: any) => void) => unknown;

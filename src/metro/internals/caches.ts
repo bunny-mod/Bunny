@@ -5,7 +5,7 @@ import { debounce } from "es-toolkit";
 import { ModuleFlags, ModulesMapInternal } from "./enums";
 
 const CACHE_VERSION = 102;
-const BUNNY_METRO_CACHE_PATH = "caches/metro_modules.json";
+const FASTCORD_METRO_CACHE_PATH = "caches/metro_modules.json";
 
 type ModulesMap = {
     [flag in number | `_${ModulesMapInternal}`]?: ModuleFlags;
@@ -39,8 +39,8 @@ function buildInitCache() {
 
 /** @internal */
 export async function initMetroCache() {
-    if (!await fileExists(BUNNY_METRO_CACHE_PATH)) return void buildInitCache();
-    const rawCache = await readFile(BUNNY_METRO_CACHE_PATH);
+    if (!await fileExists(FASTCORD_METRO_CACHE_PATH)) return void buildInitCache();
+    const rawCache = await readFile(FASTCORD_METRO_CACHE_PATH);
 
     try {
         _metroCache = JSON.parse(rawCache);
@@ -62,7 +62,7 @@ export async function initMetroCache() {
 }
 
 const saveCache = debounce(() => {
-    writeFile(BUNNY_METRO_CACHE_PATH, JSON.stringify(_metroCache));
+    writeFile(FASTCORD_METRO_CACHE_PATH, JSON.stringify(_metroCache));
 }, 1000);
 
 function extractExportsFlags(moduleExports: any) {

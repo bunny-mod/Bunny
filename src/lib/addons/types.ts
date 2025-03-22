@@ -1,6 +1,6 @@
 export type Author = { name: string, id?: `${bigint}`; };
 
-export interface BunnyManifest {
+export interface FastcordManifest {
     readonly id: string;
     readonly spec: number;
     readonly version: string;

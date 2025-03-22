@@ -4,7 +4,7 @@ import { createStorage } from "@lib/api/storage";
 import { logger } from "@lib/utils/logger";
 
 import { registeredPlugins } from ".";
-import { BunnyPluginObject } from "./types";
+import { FastcordPluginObject } from "./types";
 
 type DisposableFn = (...props: any[]) => () => unknown;
 function shimDisposableFn<F extends DisposableFn>(unpatches: (() => void)[], f: F): F {
@@ -22,7 +22,7 @@ function shimDisposableFn<F extends DisposableFn>(unpatches: (() => void)[], f: 
     return dummy;
 }
 
-export function createBunnyPluginApi(id: string) {
+export function createFastcordPluginApi(id: string) {
     const disposers = new Array<DisposableFn>;
 
     // proxying this would be a good idea
@@ -44,13 +44,13 @@ export function createBunnyPluginApi(id: string) {
                 intercept: shimDisposableFn(disposers, window.fastcord.api.flux.intercept)
             }
         },
-        // Added something in here? Make sure to also update BunnyPluginProperty in ./types
+        // Added something in here? Make sure to also update FastcordPluginProperty in ./types
         plugin: {
             createStorage: <T extends object = any>() => createStorage<T>(`plugins/storage/${id}.json`),
             manifest: registeredPlugins.get(id),
             logger
         }
-    } as unknown as BunnyPluginObject;
+    } as unknown as FastcordPluginObject;
 
     return {
         object,

@@ -8,7 +8,7 @@ import * as t from "./types/components";
 
 const bySingularProp = createFilterDefinition<[string]>(
     ([prop], m) => m[prop] && Object.keys(m).length === 1,
-    prop => `bunny.metro.common.components.bySingularProp(${prop})`
+    prop => `fastcord.metro.common.components.bySingularProp(${prop})`
 );
 
 const findSingular = (prop: string) => proxyLazy(() => findExports(bySingularProp(prop))?.[prop]);

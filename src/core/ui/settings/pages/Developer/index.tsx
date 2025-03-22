@@ -82,7 +82,7 @@ export default function Developer() {
                                 size="md"
                                 onChange={(v: string) => loaderConfig.customLoadUrl.url = v}
                                 placeholder="http://localhost:4040/vendetta.js"
-                                label={Strings.BUNNY_URL}
+                                label={Strings.FASTCORD_URL}
                             />} />}
                             {isReactDevToolsPreloaded() && isVendettaLoader() && <TableSwitchRow
                                 label={Strings.LOAD_REACT_DEVTOOLS}
@@ -101,7 +101,7 @@ export default function Developer() {
                             label={Strings.ASSET_BROWSER}
                             icon={<TableRow.Icon source={findAssetId("ic_image")} />}
                             trailing={TableRow.Arrow}
-                            onPress={() => navigation.push("BUNNY_CUSTOM_PAGE", {
+                            onPress={() => navigation.push("FASTCORD_CUSTOM_PAGE", {
                                 title: Strings.ASSET_BROWSER,
                                 render: AssetBrowser,
                             })}
@@ -120,8 +120,8 @@ export default function Developer() {
                                 options: [
                                     // @ts-expect-error
                                     // Of course, to trigger an error, we need to do something incorrectly. The below will do!
-                                    { label: Strings.BUNNY, onPress: () => navigation.push("BUNNY_CUSTOM_PAGE", { render: () => <undefined /> }) },
-                                    { label: "Discord", isDestructive: true, onPress: () => navigation.push("BUNNY_CUSTOM_PAGE", { noErrorBoundary: true }) },
+                                    { label: Strings.FASTCORD, onPress: () => navigation.push("FASTCORD_CUSTOM_PAGE", { render: () => <undefined /> }) },
+                                    { label: "Discord", isDestructive: true, onPress: () => navigation.push("FASTCORD_CUSTOM_PAGE", { noErrorBoundary: true }) },
                                 ],
                             })}
                         />

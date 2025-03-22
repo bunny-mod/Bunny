@@ -31,7 +31,7 @@ export default function PluginInfoActionSheet({ plugin, navigation }: PluginInfo
                         icon={findAssetId("WrenchIcon")}
                         onPress={() => {
                             hideSheet("PluginInfoActionSheet");
-                            navigation.push("BUNNY_CUSTOM_PAGE", {
+                            navigation.push("FASTCORD_CUSTOM_PAGE", {
                                 title: plugin.name,
                                 render: SettingsComponent,
                             });

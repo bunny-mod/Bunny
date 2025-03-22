@@ -17,7 +17,7 @@ jobs:
           - name: Checkout builds
             uses: actions/checkout@v4
             with:
-                repository: "bunny-mod/builds"
+                repository: "fastcord/builds"
                 path: "builds"
                 token: ${{ secrets.BUILDS_TOKEN }}
                 ref: ${{ github.ref_name }}
@@ -33,7 +33,7 @@ jobs:
 
           - name: Build
             run: pnpm build --release-branch=${{ github.ref_name }} --build-minify
-          
+
           # TODO: Check for linting?
 
           - name: Push builds
@@ -49,5 +49,5 @@ jobs:
 
           - name: Purge CDN cache
             run: |
-                curl https://purge.jsdelivr.net/gh/pyoncord/bunny-build-infos@${{ github.ref_name }}/bunny.js
+                curl https://purge.jsdelivr.net/gh/pyoncord/bunny-build-infos@${{ github.ref_name }}/fastcord.js
                 

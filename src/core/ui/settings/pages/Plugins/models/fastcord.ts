@@ -1,11 +1,11 @@
-import { PyoncordIcon } from "@core/ui/settings";
+import { FastcordIcon } from "@core/ui/settings";
 import { disablePlugin, enablePlugin, getPluginSettingsComponent, isPluginEnabled, pluginSettings } from "@lib/addons/plugins";
-import { BunnyPluginManifest } from "@lib/addons/plugins/types";
+import { FastcordPluginManifest } from "@lib/addons/plugins/types";
 import { useObservable } from "@lib/api/storage";
 
 import { UnifiedPluginModel } from ".";
 
-export default function unifyBunnyPlugin(manifest: BunnyPluginManifest): UnifiedPluginModel {
+export default function unifyFastcordPlugin(manifest: FastcordPluginManifest): UnifiedPluginModel {
     return {
         id: manifest.id,
         name: manifest.display.name,
@@ -14,7 +14,7 @@ export default function unifyBunnyPlugin(manifest: BunnyPluginManifest): Unified
 
         getBadges() {
             return [
-                { source: { uri: PyoncordIcon } },
+                { source: { uri: FastcordIcon } },
                 // { source: findAssetId("CheckmarkLargeBoldIcon")! }
             ];
         },

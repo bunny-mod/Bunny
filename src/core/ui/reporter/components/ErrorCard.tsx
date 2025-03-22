@@ -33,7 +33,7 @@ export default function ErrorCard(props: ErrorCardProps) {
                     text={"Details"}
                     // icon={findAssetId("CircleInformationIcon-primary")}
                     onPress={() => showSheet(
-                        "BunnyErrorDetailsActionSheet",
+                        "FastcordErrorDetailsActionSheet",
                         ErrorDetailsActionSheet,
                         { error: props.error as Error }
                     )}

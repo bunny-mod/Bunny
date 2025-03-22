@@ -71,7 +71,7 @@ export default function PluginInfoActionSheet({ plugin, navigation }: PluginInfo
                     disabled={!plugin.getPluginSettingsComponent()}
                     icon={findAssetId("WrenchIcon")}
                     onPress={() => {
-                        navigation.push("BUNNY_CUSTOM_PAGE", {
+                        navigation.push("FASTCORD_CUSTOM_PAGE", {
                             title: plugin.name,
                             render: plugin.getPluginSettingsComponent(),
                         });

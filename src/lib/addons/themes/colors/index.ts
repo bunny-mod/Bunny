@@ -3,7 +3,7 @@ import patchChatBackground from "./patches/background";
 import patchDefinitionAndResolver from "./patches/resolver";
 import patchStorage from "./patches/storage";
 import { ColorManifest } from "./types";
-import { updateBunnyColor } from "./updater";
+import { updateFastcordColor } from "./updater";
 
 /** @internal */
 export default function initColors(manifest: ColorManifest | null) {
@@ -13,7 +13,7 @@ export default function initColors(manifest: ColorManifest | null) {
         patchChatBackground()
     ];
 
-    if (manifest) updateBunnyColor(manifest, { update: false });
+    if (manifest) updateFastcordColor(manifest, { update: false });
 
     return () => patches.forEach(p => p());
 }

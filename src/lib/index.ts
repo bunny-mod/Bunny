@@ -20,10 +20,10 @@ import { proxyLazy } from "./utils/lazy";
 
 /**
  * @internal
- * @deprecated Moved to top level (bunny.*)
+ * @deprecated Moved to top level (fastcord.*)
  */
 export const managers = proxyLazy(() => {
-    console.warn("bunny.managers.* is deprecated, and moved the top level (bunny.*). bunny.managers will be eventually removed soon");
+    console.warn("fastcord.managers.* is deprecated, and moved the top level (fastcord.*). fastcord.managers will be eventually removed soon");
 
     return {
         get fonts() { return fonts; },

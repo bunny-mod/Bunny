@@ -42,17 +42,17 @@ export function patchTabsUI(unpatches: (() => void | boolean)[]) {
             ...rendererConfigValue,
             VendettaCustomPage: {
                 type: "route",
-                title: () => "Bunny",
+                title: () => "Fastcord",
                 screen: {
                     route: "VendettaCustomPage",
                     getComponent: () => CustomPageRenderer
                 }
             },
-            BUNNY_CUSTOM_PAGE: {
+            FASTCORD_CUSTOM_PAGE: {
                 type: "route",
-                title: () => "Bunny",
+                title: () => "Fastcord",
                 screen: {
-                    route: "BUNNY_CUSTOM_PAGE",
+                    route: "FASTCORD_CUSTOM_PAGE",
                     getComponent: () => CustomPageRenderer
                 }
             },

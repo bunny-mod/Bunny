@@ -5,11 +5,11 @@ import { safeFetch } from "@lib/utils";
 import { OFFICIAL_PLUGINS_REPO_URL } from "@lib/utils/constants";
 import { semver } from "@metro/common";
 
-import { createBunnyPluginApi } from "./api";
+import { createFastcordPluginApi } from "./api";
 import * as t from "./types";
 
 type PluginInstantiator = (
-    bunny: t.BunnyPluginObject,
+    fastcord: t.FastcordPluginObject,
     definePlugin?: (p: t.PluginInstance) => t.PluginInstanceInternal
 ) => t.PluginInstanceInternal;
 
@@ -18,9 +18,9 @@ type PluginInstantiator = (
 // stores the always existing core plugins instances (which can't be destroyed)
 export const corePluginInstances = new Map<string, t.PluginInstanceInternal>();
 
-export const registeredPlugins = new Map<string, t.BunnyPluginManifest>();
+export const registeredPlugins = new Map<string, t.FastcordPluginManifest>();
 export const pluginInstances = new Map<string, t.PluginInstanceInternal>();
-export const apiObjects = new Map<string, ReturnType<typeof createBunnyPluginApi>>();
+export const apiObjects = new Map<string, ReturnType<typeof createFastcordPluginApi>>();
 
 export const pluginRepositories = createStorage<t.PluginRepoStorage>("plugins/repositories.json");
 export const pluginSettings = createStorage<t.PluginSettingsStorage>("plugins/settings.json");
@@ -46,7 +46,7 @@ export function isGreaterVersion(v1: string, v2: string) {
     return semver.prerelease(v1)?.includes("dev") && semver.eq(coerced, v2);
 }
 
-function isExternalPlugin(manifest: t.BunnyPluginManifest): manifest is t.BunnyPluginManifestInternal {
+function isExternalPlugin(manifest: t.FastcordPluginManifest): manifest is t.FastcordPluginManifestInternal {
     return "parentRepository" in manifest;
 }
 
@@ -77,7 +77,7 @@ export function isPluginEnabled(id: string) {
  * @returns The newly fetched plugin manifest
  */
 export async function updateAndWritePlugin(repoUrl: string, id: string, fetchScript: boolean) {
-    const manifest: t.BunnyPluginManifestInternal = await fetchJSON(repoUrl, `builds/${id}/manifest.json`);
+    const manifest: t.FastcordPluginManifestInternal = await fetchJSON(repoUrl, `builds/${id}/manifest.json`);
 
     // @ts-expect-error - Setting a readonly property
     manifest.parentRepository = repoUrl;
@@ -139,7 +139,7 @@ export async function updateRepository(repoUrl: string) {
     if (!storedRepo) {
         for (const id in repo) {
             if (corePluginInstances.has(id)) {
-                throw new Error(`Plugins can't have the same ID as any of Bunny core plugin '${id}'`);
+                throw new Error(`Plugins can't have the same ID as any of Fastcord core plugin '${id}'`);
             }
         }
 
@@ -168,7 +168,7 @@ export async function updateRepository(repoUrl: string) {
 
     // Register plugins in this repository
     for (const id of pluginIds) {
-        const manifest = getPreloadedStorage<t.BunnyPluginManifest>(`plugins/manifests/${id}.json`);
+        const manifest = getPreloadedStorage<t.FastcordPluginManifest>(`plugins/manifests/${id}.json`);
         if (manifest === undefined) continue; // shouldn't happen, but just incase if it does
 
         const existing = registeredPlugins.get(id);
@@ -293,8 +293,8 @@ export async function startPlugin(id: string, { throwIfDisabled = false, disable
             // jsPath should always exists when the plugin is installed, unless the storage is corrupted
             const iife = await readFile(manifest.jsPath!!);
             var instantiator = globalEvalWithSourceUrl(
-                `(bunny,definePlugin)=>{${iife};return plugin?.default ?? plugin;}`,
-                `bunny-plugin/${id}-${manifest.version}`
+                `(fastcord,definePlugin)=>{${iife};return plugin?.default ?? plugin;}`,
+                `fastcord-plugin/${id}-${manifest.version}`
             ) as PluginInstantiator;
         } catch (error) {
             throw new Error("An error occured while parsing plugin's code, possibly a syntax error?", { cause: error });
@@ -302,7 +302,7 @@ export async function startPlugin(id: string, { throwIfDisabled = false, disable
 
         // Stage two, load the plugin
         try {
-            const api = createBunnyPluginApi(id);
+            const api = createFastcordPluginApi(id);
             pluginInstance = instantiator(api.object, p => {
                 return Object.assign(p, {
                     manifest

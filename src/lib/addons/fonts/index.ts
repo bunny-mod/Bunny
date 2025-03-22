@@ -14,7 +14,7 @@ export interface FontDefinition {
 }
 
 type FontStorage = Record<string, FontDefinition> & { __selected?: string; };
-export const fonts = wrapSync(createStorage<FontStorage>(createMMKVBackend("BUNNY_FONTS")));
+export const fonts = wrapSync(createStorage<FontStorage>(createMMKVBackend("FASTCORD_FONTS")));
 
 async function writeFont(font: FontDefinition | null) {
     if (!font && font !== null) throw new Error("Arg font must be a valid object or null");

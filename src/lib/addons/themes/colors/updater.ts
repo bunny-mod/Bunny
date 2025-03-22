@@ -27,7 +27,7 @@ export const _colorRef: InternalColorRef = {
     lastSetDiscordTheme: "darker"
 };
 
-export function updateBunnyColor(colorManifest: ColorManifest | null, { update = true }) {
+export function updateFastcordColor(colorManifest: ColorManifest | null, { update = true }) {
     if (settings.safeMode?.enabled) return;
 
     const internalDef = colorManifest ? parseColorManifest(colorManifest) : null;

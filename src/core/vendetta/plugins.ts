@@ -2,7 +2,7 @@ import { awaitStorage, createMMKVBackend, createStorage, purgeStorage, wrapSync 
 import { Author } from "@lib/addons/types";
 import { settings } from "@lib/api/settings";
 import { safeFetch } from "@lib/utils";
-import { BUNNY_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
+import { FASTCORD_PROXY_PREFIX, VD_PROXY_PREFIX } from "@lib/utils/constants";
 import { logger,LoggerClass } from "@lib/utils/logger";
 
 type EvaledPlugin = {
@@ -40,8 +40,8 @@ export const VdPluginManager = {
     async pluginFetch(url: string) {
         if (url.startsWith(VD_PROXY_PREFIX)) {
             url = url
-                .replace("https://bunny-mod.github.io/plugins-proxy", BUNNY_PROXY_PREFIX)
-                .replace(VD_PROXY_PREFIX, BUNNY_PROXY_PREFIX);
+                .replace("https://bunny-mod.github.io/plugins-proxy", FASTCORD_PROXY_PREFIX)
+                .replace(VD_PROXY_PREFIX, FASTCORD_PROXY_PREFIX);
         }
 
         return await safeFetch(url, { cache: "no-store" });
@@ -98,7 +98,7 @@ export const VdPluginManager = {
                 // Wrapping this with wrapSync is NOT an option.
                 storage: await createStorage<Record<string, any>>(createMMKVBackend(plugin.id)),
             },
-            logger: new LoggerClass(`Bunny » ${plugin.manifest.name}`),
+            logger: new LoggerClass(`Fastcord » ${plugin.manifest.name}`),
         };
         const pluginString = `vendetta=>{return ${plugin.js}}\n//# sourceURL=${plugin.id}`;
 

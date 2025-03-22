@@ -7,7 +7,7 @@ import { metroModules, subscribeModule } from "./internals/modules";
 import type { FilterFn, LazyModuleContext } from "./types";
 
 /** @internal */
-export const _lazyContextSymbol = Symbol.for("bunny.metro.lazyContext");
+export const _lazyContextSymbol = Symbol.for("fastcord.metro.lazyContext");
 
 const _lazyContexts = new WeakMap<any, LazyModuleContext>();
 

@@ -1,5 +1,5 @@
 import { deleteRepository, installPlugin, isCorePlugin, isPluginInstalled, pluginRepositories, registeredPlugins, uninstallPlugin, updateAllRepository, updateRepository } from "@lib/addons/plugins";
-import { BunnyPluginManifestInternal } from "@lib/addons/plugins/types";
+import { FastcordPluginManifestInternal } from "@lib/addons/plugins/types";
 import { findAssetId } from "@lib/api/assets";
 import { dismissAlert, openAlert } from "@lib/ui/alerts";
 import { AlertActionButton } from "@lib/ui/components/wrappers";
@@ -65,7 +65,7 @@ function TrailingButtons(props: { id: string; }) {
     </Stack>;
 }
 
-function PluginCard(props: { manifest: BunnyPluginManifestInternal; }) {
+function PluginCard(props: { manifest: FastcordPluginManifestInternal; }) {
     const { display, version } = props.manifest;
 
     return (
@@ -173,7 +173,7 @@ function AddRepositoryAlert() {
                     } catch (e) {
                         showToast("Failed to add repository!", findAssetId("Small"));
                     } finally {
-                        dismissAlert("bunny-add-plugin-repository");
+                        dismissAlert("fastcord-add-plugin-repository");
                         showSheet("plugin-browser-options", PluginBrowserOptions);
                     }
                 }} />
@@ -190,7 +190,7 @@ function PluginBrowserOptions() {
                 label="Add Repository..."
                 icon={<TableRow.Icon source={findAssetId("PlusMediumIcon")} />}
                 onPress={() => {
-                    openAlert("bunny-add-plugin-repository", <AddRepositoryAlert />);
+                    openAlert("fastcord-add-plugin-repository", <AddRepositoryAlert />);
                     hideSheet("plugin-browser-options");
                 }} />
         </TableRowGroup>
@@ -203,7 +203,7 @@ function RepositoryRow(props: { url: string; }) {
 
     return (
         <TableRow
-            label={isOfficial ? "Bunny's Repository" : (repo.$meta?.name ?? "Unknown")}
+            label={isOfficial ? "Fastcord's Repository" : (repo.$meta?.name ?? "Unknown")}
             subLabel={props.url}
             trailing={(
                 <Stack direction="horizontal">
@@ -222,7 +222,7 @@ function RepositoryRow(props: { url: string; }) {
                         disabled={isOfficial}
                         icon={findAssetId("TrashIcon")}
                         onPress={() => {
-                            openAlert("bunny-remove-repository", <AlertModal
+                            openAlert("fastcord-remove-repository", <AlertModal
                                 title="Remove Repository"
                                 content="Are you sure you want to remove this repository?"
                                 extraContent={<Card>
@@ -235,7 +235,7 @@ function RepositoryRow(props: { url: string; }) {
                                         onPress={async () => {
                                             await deleteRepository(props.url);
                                             showToast("Removed repository!", findAssetId("Trash"));
-                                            dismissAlert("bunny-remove-repository");
+                                            dismissAlert("fastcord-remove-repository");
                                         }}
                                     />
                                 </AlertActions>}

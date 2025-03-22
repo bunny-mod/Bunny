@@ -41,7 +41,7 @@ const lazyHandler: ProxyHandler<any> = {
         return Reflect.has(resolved, p);
     },
     get(target, p, receiver) {
-        if (__DEV__ && p === "__IS_BUNNY_LAZY_PROXY__") return true;
+        if (__DEV__ && p === "__IS_FASTCORD_LAZY_PROXY__") return true;
 
         const contextHolder = proxyContextHolder.get(target);
 

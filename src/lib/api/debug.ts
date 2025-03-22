@@ -99,13 +99,13 @@ export function getDebugInfo() {
 
     return {
         /**
-         * @deprecated use `bunny` field
+         * @deprecated use `fastcord` field
          * */
         vendetta: {
             version: versionHash.split("-")[0],
             loader: getLoaderName(),
         },
-        bunny: {
+        fastcord: {
             version: versionHash,
             loader: {
                 name: getLoaderName(),

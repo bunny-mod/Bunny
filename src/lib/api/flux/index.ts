@@ -1,8 +1,8 @@
 // shelter-mod inspired
 import { FluxDispatcher } from "@metro/common";
 
-const blockedSym = Symbol.for("bunny.flux.blocked");
-const modifiedSym = Symbol.for("bunny.flux.modified");
+const blockedSym = Symbol.for("fastcord.flux.blocked");
+const modifiedSym = Symbol.for("fastcord.flux.modified");
 
 export const dispatcher = FluxDispatcher;
 

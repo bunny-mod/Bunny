@@ -3,8 +3,8 @@ import { Observable, ObserverOptions } from "@gullerya/object-observer";
 import { fileExists, readFile, removeFile, writeFile } from "@lib/api/native/fs";
 import { debounce } from "es-toolkit";
 
-const storageInitErrorSymbol = Symbol.for("bunny.storage.initError");
-const storagePromiseSymbol = Symbol.for("bunny.storage.promise");
+const storageInitErrorSymbol = Symbol.for("fastcord.storage.initError");
+const storagePromiseSymbol = Symbol.for("fastcord.storage.promise");
 
 const _loadedStorage = {} as Record<string, any>;
 

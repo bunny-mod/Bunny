@@ -102,7 +102,7 @@ const Actions = () => {
             variant="secondary"
             icon={findAssetId("WrenchIcon")}
             disabled={!plugin.getPluginSettingsComponent()}
-            onPress={() => navigation.push("BUNNY_CUSTOM_PAGE", {
+            onPress={() => navigation.push("FASTCORD_CUSTOM_PAGE", {
                 title: plugin.name,
                 render: plugin.getPluginSettingsComponent(),
             })}

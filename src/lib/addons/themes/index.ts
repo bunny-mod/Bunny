@@ -9,7 +9,7 @@ import initColors from "./colors";
 import { applyAndroidAlphaKeys, normalizeToHex } from "./colors/parser";
 import { colorsPref } from "./colors/preferences";
 import { VendettaThemeManifest } from "./colors/types";
-import { updateBunnyColor } from "./colors/updater";
+import { updateFastcordColor } from "./colors/updater";
 
 export interface VdThemeInfo {
     id: string;
@@ -88,7 +88,7 @@ export async function fetchTheme(url: string, selected = false) {
 
     if (selected) {
         writeThemeToNative(themes[url]);
-        updateBunnyColor(themes[url].data, { update: true });
+        updateFastcordColor(themes[url].data, { update: true });
     }
 }
 
@@ -104,10 +104,10 @@ export function selectTheme(theme: VdThemeInfo | null, write = true) {
     );
 
     if (theme == null && write) {
-        updateBunnyColor(null, { update: true });
+        updateFastcordColor(null, { update: true });
         return writeThemeToNative({});
     } else if (theme) {
-        updateBunnyColor(theme.data, { update: true });
+        updateFastcordColor(theme.data, { update: true });
         return writeThemeToNative(theme);
     }
 }
