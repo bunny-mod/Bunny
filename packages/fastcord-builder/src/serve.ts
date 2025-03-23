@@ -1,0 +1,1 @@
+export { startFastcordServer } from "./server";

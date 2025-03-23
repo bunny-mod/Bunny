@@ -1,0 +1,15 @@
+{
+  "name": "@fastcord/app",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "spitroast": "^2.1.6"
+  }
+}

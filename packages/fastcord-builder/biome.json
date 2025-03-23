@@ -7,7 +7,6 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"include": ["src/**/*"],
 		"ignore": ["node_modules"]
 	},
 	"formatter": {
