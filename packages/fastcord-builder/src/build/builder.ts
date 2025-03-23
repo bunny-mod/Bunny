@@ -1,18 +1,12 @@
 import * as path from "node:path";
-import { fileURLToPath } from "node:url";
 import swc from "@swc/core";
 import chalk from "chalk";
-import {
-	type BuildContext,
-	type BuildOptions,
-	type BuildResult,
-	build,
-} from "esbuild";
+import { type BuildOptions, type BuildResult, build } from "esbuild";
 import type { FastcordConfig } from "../config";
 
 type BuildResultConfig = {
 	config: BuildOptions;
-	context: BuildResult<BuildOptions>;
+	context: BuildResult;
 	hash: string;
 	timeTook: number;
 };
@@ -64,12 +58,12 @@ export class Builder {
 				__DEV__: production ? "false" : "true",
 			},
 			inject: [
-				"./scripts/build/shims/async-iterator-symbol.js",
-				"./scripts/build/shims/promise-all-settled.js",
+				`${path.resolve(__dirname, "./shims/async-iterator-symbol.js")}`,
+				`${path.resolve(__dirname, "./shims/promise-all-settled.js")}`,
 			],
 			alias: {
-				"!fastcord-deps-shim!": "./scripts/build/shims/deps-shim.js",
-				"react/jsx-runtime": "./scripts/build/shims/react-jsx-runtime.js",
+				"!fastcord-deps-shim!": `${path.resolve(__dirname, "./shims/deps-shim.js")}`,
+				"react/jsx-runtime": `${path.resolve(__dirname, "./shims/react-jsx-runtime.js")}`,
 				spitroast: "./node_modules/spitroast",
 			},
 			plugins: [
@@ -129,7 +123,7 @@ export class Builder {
 		this.hash = this.generateHash();
 		const config = this.createBuildConfig(overrideConfig);
 		const startTime = performance.now();
-		let context: BuildResult<BuildOptions>;
+		let context: BuildResult;
 
 		try {
 			console.log(chalk.yellow("⚡ Starting build process..."));

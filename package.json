@@ -17,16 +17,11 @@
     "@fastcord/builder": "workspace:*",
     "@swc/core": "^1.11.11",
     "@swc/helpers": "^0.5.15",
-    "@types/bun": "latest",
-    "chalk": "^5.4.1",
-    "commander": "^12.0.0",
-    "esbuild": "^0.25.1",
-    "esbuild-plugin-globals": "^0.2.0"
+    "@types/bun": "latest"
   },
   "dependencies": {
     "@fastcord/app": "workspace:*",
-    "@fastcord/metro": "workspace:*",
-    "spitroast": "^2.1.6"
+    "@fastcord/metro": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5"
